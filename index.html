@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список користувачів</title>
+</head>
+<body>
+    <h1>Користувачі:</h1>
+    <ul id="user-list"></ul>
+
+    <script>
+        async function fetchUsers() {
+            try {
+                const response = await fetch("http://127.0.0.1:8000/users");
+                const data = await response.json();
+                const userList = document.getElementById("user-list");
+
+                data.forEach(user => {
+                    const li = document.createElement("li");
+                    li.textContent = `ID: ${user.id}, Name: ${user.name}, Email: ${user.email}`;
+                    userList.appendChild(li);
+                });
+            } catch (error) {
+                console.error("Помилка при отриманні користувачів:", error);
+            }
+        }
+
+        fetchUsers();
+    </script>
+</body>
+</html>
